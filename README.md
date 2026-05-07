@@ -10,6 +10,14 @@ The name comes from what the convention is for AI tools: a compass for who you a
 
 ---
 
+## Just want to use it?
+
+**[GETTING_STARTED.md](GETTING_STARTED.md)** — a practical walkthrough for someone who just set up their Compass and wants to know what to do next: day one bootstrap, the daily flow, the weekly review, monthly maintenance.
+
+The rest of this document is the full convention spec. Read it if you want to understand how it works, contribute to it, or build tools on top of it.
+
+---
+
 ## What this is
 
 This is a **specification**, not a product. It defines:
@@ -82,9 +90,13 @@ For most people starting out, putting your Compass in Google Drive is the right 
 
 4. **Draft initial content.** Spend 30 minutes filling in rough drafts of `self/voice.md`, `self/preferences.md`, and `self/facts.md`. Don't aim for completeness — agents need *something* to read for the convention to be useful from session one.
 
+   **Faster option:** If your Drive already contains a lot of your writing and documents, use `bootstrap/full-drive-scan.md` to have Cowork scan your Drive and produce drafts automatically. Takes about an hour total (setup + scan + review). Covers facts.md, voice.md, preferences.md, and decisions.md. For perspectives, use the interview bootstrap separately — perspectives inferred from Drive content tend to be wrong.
+
 5. **Connect an AI tool.** See the recipes in `/recipes/` for how to point Cowork, Claude.ai, or other tools at your Compass. Cowork is the easiest starting point because it has native Drive integration and can both read and write to your Compass folder.
 
 6. **Use it for two weeks.** Don't optimize prematurely. Use the Compass with your AI tool of choice. When refinements get proposed (in `refinements/pending/`), review and accept the good ones. The Compass gets richer through use.
+
+After setup, see **[GETTING_STARTED.md](GETTING_STARTED.md)** for the daily/weekly/monthly rhythm that keeps the Compass compounding in value.
 
 **Other storage options:**
 
@@ -365,10 +377,11 @@ This repo includes:
 - `local-ollama.md` — instructions for fully-local setups
 
 **Bootstrap prompts** (`/bootstrap/`): Prompts for initializing a Compass from existing material:
-- `voice-from-writing-samples.md` — extract voice patterns from sample documents
-- `interview-perspectives.md` — conversational interview to populate perspective files
+- `full-drive-scan.md` — scan your Google Drive to produce initial substrate drafts (recommended starting point)
+- `voice-from-writing-samples.md` — focused voice extraction from writing samples
+- `interview-perspectives.md` — conversational interview to populate perspective files (required for perspectives)
 - `team-guidelines-from-history.md` — extract team guidelines from past decisions
-- `facts-from-resume.md` — quick bootstrap of facts.md
+- `facts-from-resume.md` — quick bootstrap of facts.md from a resume
 
 **Helper scripts** (`/scripts/`): Optional utilities:
 - `validate-compass.py` — checks a folder against the convention, reports violations

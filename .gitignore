@@ -1,6 +1,8 @@
 mnt/
 BUILD_INSTRUCTIONS.md
-# Draft files at root (copied to templates/)
+files/
+files.zip
+# Draft files at root (copied to templates/ or bootstrap/)
 /COMPASS.md
 /log.md
 /voice.md
@@ -13,7 +15,10 @@ BUILD_INSTRUCTIONS.md
 /claude-code.md
 /voice-from-writing-samples.md
 /interview-perspectives.md
+/full-drive-scan.md
 # Python
 __pycache__/
 *.pyc
 .env
+# macOS
+.DS_Store
