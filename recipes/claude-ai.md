@@ -1,5 +1,7 @@
 # Recipe: Claude.ai Projects
 
+**Storage assumed: Google Drive.** Claude.ai Projects read Compass files via Drive connector. If your Compass is local or in Git, see `recipes/claude-code.md` instead.
+
 Set up a Claude.ai Project that reads from your compass-md so every conversation in that project benefits from your context.
 
 ---

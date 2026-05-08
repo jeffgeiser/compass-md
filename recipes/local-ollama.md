@@ -1,8 +1,8 @@
 # Recipe: Local Models (Ollama, llama.cpp, etc.)
 
-Use the Compass with a fully local LLM setup. No data leaves your machine.
+**Storage assumed: Local filesystem.** Local models cannot read Google Drive directly. If your Compass is in Drive, copy or sync it locally before using this recipe.
 
-Local models can't read Google Drive directly. Your Compass must be on the local filesystem — `~/compass/` is the recommended path.
+Use the Compass with a fully local LLM setup. No data leaves your machine.
 
 ---
 

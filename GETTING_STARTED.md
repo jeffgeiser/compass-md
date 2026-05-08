@@ -8,10 +8,10 @@ A practical walkthrough for someone who just set up a Compass in Google Drive an
 
 Assuming you followed the Setup section in the README, you have:
 
-- A `compass` folder in Google Drive with the template files copied in
+- A `compass` folder (in Drive, on your local filesystem, or in a git repo) with the template files copied in
 - A `COMPASS.md` schema file that you've customized for yourself
 - Initial drafts of `self/voice.md`, `self/preferences.md`, and `self/facts.md`
-- A Cowork project (or Claude.ai Project) configured to read from your Compass
+- An AI tool configured to read from your Compass
 
 Now what?
 
@@ -36,13 +36,16 @@ Before connecting AI tools, populate the substrate. An empty Compass produces no
 
 **Time investment: ~60 minutes.**
 
-**Faster option: Drive scan.** If your Drive already contains a lot of your writing, documents, and notes, you can have Cowork (or any Drive-connected AI tool) scan it and produce drafts for facts.md, voice.md, preferences.md, and decisions.md. See `bootstrap/full-drive-scan.md` for the prompt. This produces drafts in 5-15 minutes that you then review (~30-60 minutes). Total: about an hour, similar to manual but produces more comprehensive starting drafts.
+**Faster option: bootstrap from existing content.** If you have a lot of existing writing or documents, you can have an AI tool scan them and produce drafts for facts.md, voice.md, preferences.md, and decisions.md. This produces drafts in 5-15 minutes that you then review (~30-60 minutes). Total: about an hour, similar to manual but produces more comprehensive starting drafts.
 
-If you go this route, follow the Drive scan bootstrap, then come back here for steps 4-5 (creating perspective files and updating COMPASS.md). For perspectives specifically, use the interview bootstrap rather than the Drive scan — perspectives inferred from Drive content tend to be wrong.
+- **Drive users:** See `bootstrap/full-drive-scan.md` — have Cowork scan your Google Drive
+- **Local/Git users:** See `bootstrap/local-folder-scan.md` — have Claude Code scan your local documents folder
+
+If you go this route, follow the matching bootstrap prompt, then come back here for steps 4-5 (creating perspective files and updating COMPASS.md). For perspectives specifically, use the interview bootstrap rather than the folder scan — perspectives inferred from document content tend to be wrong.
 
 **Manual route below if you prefer to start from scratch:**
 
-### 1. Open `self/voice.md` in Drive
+### 1. Open `self/voice.md`
 
 Spend 15 minutes filling in the sections. Don't aim for completeness — aim for *honesty about what you actually do*. Look at recent emails or messages you've sent if you need examples.
 
@@ -83,8 +86,6 @@ Now go back to your `COMPASS.md` schema file and update the "File coverage" sect
 
 Before relying on the Compass, verify your AI tool is actually using it.
 
-### In Cowork (or Claude.ai)
-
 Open your Compass-aware project and ask something that should trigger Compass reads:
 
 > "Draft a quick email to a client telling them the project is delayed by a week. Match my voice."
@@ -94,7 +95,7 @@ The response should:
 - Reflect your actual voice patterns from voice.md
 - Avoid words you said you avoid in voice.md
 
-If the response doesn't cite Compass files, the integration isn't working. Re-check your project's custom instructions per the recipe.
+If the response doesn't cite Compass files, the integration isn't working. Re-check your AI tool's custom instructions per the matching recipe.
 
 If the response cites the files but doesn't actually match your voice, your voice.md may not be specific enough. Read what was generated, identify what's off, and add more specific guidance to voice.md.
 
@@ -114,9 +115,11 @@ You don't need to think about the Compass during normal use. If you're conscious
 
 Periodically — at the end of a session, or when you correct an agent's output meaningfully — the agent should propose a refinement to your Compass. This shows up in two places depending on the tool:
 
-**In Cowork:** A new file appears in `compass/refinements/pending/` in your Drive. Cowork creates it and writes the proposed change.
+**In Cowork (Drive):** A new file appears in `compass/refinements/pending/` in your Drive. Cowork creates it and writes the proposed change.
 
-**In Claude.ai:** The proposal comes back as a section in the chat response (Claude.ai can't write to Drive directly). You manually save it to `refinements/pending/` if you want to keep it for review.
+**In Claude.ai (Drive):** The proposal comes back as a section in the chat response (Claude.ai can't write to Drive directly). You manually save it to `refinements/pending/` if you want to keep it for review.
+
+**In Claude Code or Cursor (local/Git):** Claude Code writes the refinement file directly to `refinements/pending/`. For Git setups, the new file shows up as an untracked file you can commit.
 
 If proposals never come, the agent isn't following the convention's refinement workflow. Check your project's custom instructions.
 
@@ -144,19 +147,19 @@ Decide one of three things:
 
 **Accept it.** The proposed change is correct and worth keeping. To accept:
 
-1. Open the target file (e.g., `self/voice.md`) in Drive
-2. Apply the proposed change manually — paste the new content, or modify the existing content as proposed
-3. Save the target file
-4. Move the refinement file from `refinements/pending/` to `refinements/accepted/` (right-click → Move to in Drive)
-5. Append a line to `log.md` (in Drive): `## [YYYY-MM-DD HH:MM] refinement-accepted | brief description`
+1. Open the target file (e.g., `self/voice.md`) and apply the proposed change — paste the new content, or modify the existing content as proposed
+2. Save the target file
+3. Move the refinement file from `refinements/pending/` to `refinements/accepted/`
+   - Drive: right-click → Move to
+   - Local/Git: `mv refinements/pending/file.md refinements/accepted/`
+4. Append a line to `log.md`: `## [YYYY-MM-DD HH:MM] refinement-accepted | brief description`
+5. If using Git: commit the changes (`git add -A && git commit -m "Compass: accept refinement — brief description"`)
 
 **Reject it.** The proposed change isn't right — the agent misread the situation, the pattern wasn't real, or the change would harm the Compass. To reject:
 
-1. Open the refinement file
-2. Add a section at the bottom: `## Rejection reason: [your explanation]`
-3. Save
-4. Move the file to `refinements/rejected/`
-5. Append to `log.md`: `## [YYYY-MM-DD HH:MM] refinement-rejected | brief description | reason`
+1. Open the refinement file and add a section at the bottom: `## Rejection reason: [your explanation]`
+2. Move the file to `refinements/rejected/`
+3. Append to `log.md`: `## [YYYY-MM-DD HH:MM] refinement-rejected | brief description | reason`
 
 **Edit and accept.** The refinement is mostly right but needs adjustment. Edit the proposed change in the refinement file, then proceed as if accepting it.
 
@@ -178,14 +181,14 @@ Once a month, do a quick health check on your Compass. **Set a recurring monthly
 
 ### Step 1: Skim your substrate files
 
-Open each of your `self/` files in Drive and read them. You're looking for:
+Open each of your `self/` files and read them. You're looking for:
 
 - Things that are stale and no longer true (your role changed, your views evolved, your preferences shifted)
 - Things you've been meaning to add but haven't
 - Contradictions across files
 - Sections that have grown too long and would benefit from being split
 
-Make edits directly in Drive. Note significant changes in `log.md`.
+Make edits directly. Note significant changes in `log.md`.
 
 ### Step 2: Run a lint pass with your AI tool
 

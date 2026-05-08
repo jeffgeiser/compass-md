@@ -1,5 +1,7 @@
 # Recipe: ChatGPT
 
+**Storage assumed: No direct storage access.** ChatGPT cannot read Drive or local files automatically. Compass files must be manually uploaded or pasted. This recipe covers how to work with that constraint.
+
 Connect ChatGPT to your compass-md context. ChatGPT's file access model is different from the other recipes — it doesn't have a persistent file connector in the same way Cowork and Claude.ai do — so the patterns here involve more manual setup.
 
 Two options, depending on how you use ChatGPT.

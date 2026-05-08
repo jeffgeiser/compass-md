@@ -1,8 +1,8 @@
 # Recipe: Cursor
 
-Connect Cursor to your compass-md so coding sessions benefit from your voice, preferences, and decisions.
+**Storage assumed: Local filesystem or Git repository.** Cursor reads files from your machine. If your Compass is in Drive, sync it locally first (Drive Desktop or rclone) before continuing.
 
-Cursor works primarily with local files. If your Compass is in Drive, sync it locally first (Drive Desktop or rclone). The simplest setup keeps your Compass at `~/compass/`.
+Connect Cursor to your compass-md so coding sessions benefit from your voice, preferences, and decisions.
 
 ---
 

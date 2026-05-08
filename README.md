@@ -1,22 +1,25 @@
 # compass-md
 
-**An open convention for personal and team context that AI agents can read, propose changes to, and learn from over time.**
+**An open convention for the human-curated identity layer that AI tools share.**
 
-A Compass is a folder of structured markdown files that captures the context an agent needs to act on someone's behalf — voice, perspectives, preferences, decisions, criteria, guidelines. The convention defines the folder structure, the file purposes, and how agents and humans should interact with the Compass.
+Every AI session starts from scratch. Your voice, your preferences, your reasoning — rebuilt from context every time, lost when the session ends. Compass-md solves that.
 
-Inspired by Andrej Karpathy's [LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), focused specifically on personal and team context rather than topical knowledge bases.
+A Compass is a folder of structured markdown files capturing the context an AI agent needs to act in alignment with someone — their voice, perspectives, preferences, decisions, values, criteria. The convention defines the folder structure, the file purposes, and how agents and humans should interact with the Compass.
 
 The name comes from what the convention is for AI tools: a compass for who you are, what you value, and how you work. Tools that read your Compass can navigate by it.
+
+Unlike topical knowledge bases (Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) approach), compass-md captures *who you are*, not *what you know*. The difference matters: agents acting on your behalf need your judgment, voice, and preferences — not a Wikipedia.
 
 ---
 
 ## Just want to use it?
 
-**[GETTING_STARTED.md](GETTING_STARTED.md)** — a practical walkthrough for someone who just set up their Compass and wants to know what to do next: day one bootstrap, the daily flow, the weekly review, monthly maintenance.
+If you're ready to set up your Compass and start using it, follow this path:
 
-The rest of this document is the full convention spec. Read it if you want to understand how it works, contribute to it, or build tools on top of it.
+1. Go to the **Setup** section below — pick the storage that fits your situation (Drive, local folder, or Git), then follow that path
+2. Then read **[GETTING_STARTED.md](./GETTING_STARTED.md)** for a practical walkthrough of daily use, the weekly review, and the monthly maintenance routine
 
----
+The rest of this README is the formal spec — useful as reference, but you don't need to read all of it to get started.
 
 ## What this is
 
@@ -54,6 +57,50 @@ All as markdown files in a known structure. Agents read them before acting. Agen
 
 ---
 
+## Where compass fits
+
+Personal AI is a stack with several layers. Different products and conventions address different layers. Understanding where compass sits clarifies what it does and what it deliberately does not do.
+
+A rough map of the landscape:
+
+1. **Per-tool memory features** — ChatGPT memory, Claude.ai memory, per-product personalization. Siloed, tool-specific, not portable.
+
+2. **Cross-tool identity conventions (compass-md lives here).** A shared, human-curated representation of the user that any tool can read. Simple, portable, deliberately small.
+
+3. **Memory architectures and retrieval systems** — vector stores, knowledge graphs, RAG pipelines, hierarchical memory like MemGPT, self-editing systems like Letta. The infrastructure that tools build internally to handle context at scale. (Mert Cobanov's [essay on agent memory](https://memory.cobanov.dev/) is a good guide to this layer.)
+
+4. **Personal AI applications** — full products that ingest your calendar, finances, health data, and communications; run continuous analysis; surface predictions and decision support. Examples include various "personal life OS" products in development.
+
+5. **Long-term agent partner visions** — speculative, multi-year products that aim to be a continuous AI presence in the user's life.
+
+Compass-md occupies layer 2 specifically because that's where a *convention* makes the most sense. Below it (layer 1), conventions don't help — each tool just has its own memory feature. Above it (layers 3-5), conventions are too constraining — real applications need flexibility in how they architect memory, ingest data, and surface insights. The middle layer — "what should be in the human-curated identity layer that any tool can read?" — is the right place for an open standard.
+
+The relationship to the layers above is complementary. A memory architecture (layer 3) can use compass as a content schema for the human-curated portion of its store. A personal AI application (layer 4) can use compass as the value-alignment layer that ensures its recommendations match what the user has stated they want. Tools at every layer benefit from a shared substrate they don't have to invent.
+
+---
+
+## What compass is not
+
+Being explicit about scope helps users self-select correctly. Compass is *not*:
+
+- **A continuous-ingestion system.** Compass doesn't watch your calendar, monitor your inbox, or track your health data. Updates happen via human curation or AI proposals during sessions.
+
+- **A real-time monitoring system.** No background processes, no scheduled analysis, no anomaly detection.
+
+- **A predictive analytics platform.** Compass stores stated values and observed patterns; it doesn't analyze them to predict your future state.
+
+- **A privacy-first encrypted architecture.** Compass is just files. Privacy is whatever your storage layer (Google Drive, local filesystem, GitHub) provides. For sensitive content, choose your storage accordingly.
+
+- **A decision support tool on its own.** AI tools that read your compass provide decision support; compass just provides the substrate they consult. The intelligence lives in the tools, not in the convention.
+
+- **A memory architecture.** Compass doesn't define how memory is stored, retrieved, or compressed. Tools implementing compass make their own architectural choices.
+
+- **A complete personal AI solution.** If you want a full personal AI product that ingests data and surfaces insights, that's an application, not a convention. Compass might be one component of such an application's stack.
+
+Users who want any of the above should look at products in layers 3-5. Users who want a portable, simple, AI-readable layer for their stated identity, voice, and preferences should look at compass.
+
+---
+
 ## Core principles
 
 **Markdown files in a folder.** No databases, no APIs, no proprietary formats. The Compass is human-readable, version-controllable, and portable across every storage and tool.
@@ -62,47 +109,169 @@ All as markdown files in a known structure. Agents read them before acting. Agen
 
 **Agents propose, humans dispose.** Agents never modify Compass files directly. They write proposals to a known location. Humans review and accept or reject. This keeps quality high and keeps the Compass trustworthy.
 
-**Storage-agnostic, Drive-friendly.** The convention works with any storage that holds files. Google Drive is the recommended starting point because it has the broadest AI tool integration and works well for both individual and team use (see Setup below).
+**Storage-agnostic.** The convention works with any storage that holds files: Google Drive, local filesystem, git repository, Dropbox, S3, or anything else. No storage is required; all are valid. See Setup below for guidance on which fits your situation.
 
 **Composable with existing tools.** Works alongside CLAUDE.md, AGENTS.md, and any other meta-files. Doesn't conflict with existing AI tool conventions.
 
 **Generalizable.** The same convention supports personal context (voice, preferences) and team context (guidelines, criteria). The folder structure adapts to use case; the conventions stay constant.
 
+**Value alignment over context dumping.** Compass is designed to capture stated values, perspectives, and preferences that AI tools should align with — not to be a complete record of everything about you. The user explicitly states what matters; AI tools validate their recommendations against those statements. This is more useful than passive context accumulation because it makes the user's intent explicit and reviewable.
+
 ---
 
-## Setup: Google Drive (recommended starting point)
+## Setup: Pick your storage
 
-For most people starting out, putting your Compass in Google Drive is the right default. Reasons:
+The Compass is just files. Where those files live determines which AI tools can access them and how you manage them day to day. Choose before setting up — migrating later is easy but requires updating your tool connections.
 
-- Cowork, Claude.ai, and most modern AI tools have Drive connectors and can read your Compass files automatically
-- Accessible from any device — your Compass is available wherever you are
-- Built-in versioning via Drive's revision history
-- Familiar interface for non-technical users to browse, read, and edit Compass files
-- Easy to share scoped slices with collaborators when needed
+### Which storage fits you?
 
-**Setup steps (about an hour, mostly drafting initial content):**
+| | Google Drive | Local folder | Git repository |
+|---|---|---|---|
+| **Good for** | Multi-device access; Drive-native tools | Privacy; local-first tools; simplest setup | Audit trail; teams; diff/PR workflows |
+| **Works with** | Cowork, Claude.ai | Claude Code, Cursor, Ollama | Claude Code, Cursor |
+| **Device access** | Any device | This machine (or synced) | Any device via `git pull` |
+| **Requires** | Google account | Nothing | Git familiarity |
+| **Privacy** | Google's terms apply | Fully local | Depends on repo visibility |
 
-1. **Create the folder structure in Drive.** In your Google Drive, create a folder called `compass` at the top level (or wherever you prefer). Inside it, create the subfolders shown in the "Folder structure" section below.
+**Google Drive** is a popular choice for people who want their Compass accessible across devices and plan to use Drive-connected AI tools (Cowork, Claude.ai). Requires a Google account; no command line.
 
-2. **Copy the templates.** Clone this repo or download the `templates/` folder. Copy the templates into your Drive folder structure. Most users just need the `self/` templates plus `COMPASS.md`, `log.md`, and the `refinements/` folders.
+**Local folder** keeps everything on your machine — nothing in the cloud, no dependencies beyond a text editor and an AI tool. The natural fit for Claude Code, Cursor, and local model users. One terminal command sets it up.
 
-3. **Edit `COMPASS.md`.** This is your schema file. Customize it for your situation — owner name, active modules, engagement notes. Spend 10 minutes here; this file shapes how every agent reads your Compass.
+**Git repository** is for developers who want diff, branch, and PR workflows for their Compass changes, or teams who want code-review-style refinement approval. Requires Git familiarity.
 
-4. **Draft initial content.** Spend 30 minutes filling in rough drafts of `self/voice.md`, `self/preferences.md`, and `self/facts.md`. Don't aim for completeness — agents need *something* to read for the convention to be useful from session one.
+Once you've chosen, follow the matching path below.
 
-   **Faster option:** If your Drive already contains a lot of your writing and documents, use `bootstrap/full-drive-scan.md` to have Cowork scan your Drive and produce drafts automatically. Takes about an hour total (setup + scan + review). Covers facts.md, voice.md, preferences.md, and decisions.md. For perspectives, use the interview bootstrap separately — perspectives inferred from Drive content tend to be wrong.
+---
 
-5. **Connect an AI tool.** See the recipes in `/recipes/` for how to point Cowork, Claude.ai, or other tools at your Compass. Cowork is the easiest starting point because it has native Drive integration and can both read and write to your Compass folder.
+### Setup: Google Drive (~1 hour)
 
-6. **Use it for two weeks.** Don't optimize prematurely. Use the Compass with your AI tool of choice. When refinements get proposed (in `refinements/pending/`), review and accept the good ones. The Compass gets richer through use.
+1. **Create the folder structure in Drive.** In Google Drive, create a folder called `compass`. Inside it, create the subfolders shown in the "Folder structure" section below.
 
-After setup, see **[GETTING_STARTED.md](GETTING_STARTED.md)** for the daily/weekly/monthly rhythm that keeps the Compass compounding in value.
+2. **Copy the templates.** Clone this repo or download the `templates/` folder. Copy the templates into your Drive structure. Most users need the `self/` templates, `COMPASS.md`, `log.md`, and the `refinements/` folders.
 
-**Other storage options:**
+3. **Edit `COMPASS.md`.** Customize it — owner name, active modules, engagement notes. Spend 10 minutes here; this file shapes how every agent reads your Compass.
 
-- **Local filesystem:** for users who want sovereignty (nothing in the cloud) and use local-first tools. See `recipes/claude-code.md`.
-- **GitHub repo:** for users who want diff/branch/PR workflows and code-review affordances for their Compass. See `docs/github-storage.md`.
-- **Dropbox, OneDrive, etc.:** the convention works with any storage that holds files. Adapt the Drive setup to your tool.
+4. **Draft initial content.** Fill in rough drafts of `self/voice.md`, `self/preferences.md`, and `self/facts.md`. Don't aim for completeness — agents need *something* to read for the convention to work from session one.
+
+   **Faster option:** If your Drive already contains a lot of your writing and documents, use `bootstrap/full-drive-scan.md` to have Cowork scan your Drive and produce drafts automatically (~1 hour total). For perspectives, use `bootstrap/interview-perspectives.md` separately — perspectives inferred from Drive content tend to be wrong.
+
+5. **Connect an AI tool.** See `recipes/cowork.md` (recommended for Drive) or `recipes/claude-ai.md`. Cowork is the easiest starting point because it has native Drive integration and can both read and write to your Compass folder.
+
+6. **Use it for two weeks before optimizing.**
+
+After setup, see **[GETTING_STARTED.md](./GETTING_STARTED.md)** for the daily/weekly/monthly rhythm.
+
+---
+
+### Setup: Local folder (~30 minutes)
+
+Everything stays on your machine. No account required, no cloud sync, no dependencies beyond a text editor and an AI tool that can read files.
+
+**Step 1: Create the folder structure.** One command sets up everything:
+
+```bash
+mkdir -p ~/compass/{self/perspectives,team/criteria,refinements/{pending,accepted,rejected}}
+```
+
+This creates your Compass at `~/compass/` with all required subfolders. Use a different path if you prefer — just substitute it throughout.
+
+**Step 2: Copy the templates.** Clone this repo and copy the starter files:
+
+```bash
+git clone https://github.com/jeffgeiser/compass-md /tmp/compass-md
+cp -r /tmp/compass-md/templates/self ~/compass/
+cp /tmp/compass-md/templates/COMPASS.md ~/compass/
+cp /tmp/compass-md/templates/log.md ~/compass/
+```
+
+**Step 3: Edit `COMPASS.md`.** Open `~/compass/COMPASS.md` in any text editor. Set your name as owner, mark `self/` as active, and add any engagement notes. Spend 10 minutes here — this file shapes how every agent reads your Compass.
+
+**Step 4: Draft initial content.** Open the three core files and fill in rough drafts:
+- `self/voice.md` — how you write: tone, vocabulary, structure
+- `self/preferences.md` — what you always want and never want from AI tools
+- `self/facts.md` — your role, location, current focus
+
+Don't aim for completeness. Agents need *something* to work with from session one; the Compass gets richer through use.
+
+**Faster option:** Use `bootstrap/local-folder-scan.md` to have Claude Code scan your local Documents folder and produce draft files automatically (~1 hour total). For perspectives, use `bootstrap/interview-perspectives.md` separately — perspectives inferred from documents tend to be wrong.
+
+**Step 5: Connect Claude Code.** Create a `CLAUDE.md` in your Compass folder so Claude Code knows how to use it:
+
+```bash
+cat > ~/compass/CLAUDE.md << 'EOF'
+# Claude Code Instructions
+
+This directory is my compass-md following the v0.1 convention.
+
+Before acting on my behalf, read COMPASS.md, then read the Compass files
+relevant to the task:
+- Drafting content → self/voice.md + relevant self/perspectives/
+- Recommendations → self/preferences.md + relevant self/perspectives/
+- Context about me → self/facts.md
+- Prior decisions → self/decisions.md
+
+Cite which files you read. When you observe something worth capturing,
+write a refinement file to refinements/pending/ following the format in
+templates/refinements/EXAMPLE-refinement.md. Max 3 per session. Never
+modify Compass files directly.
+EOF
+```
+
+Then reference your Compass from any code project by adding to that project's `CLAUDE.md`:
+
+```
+## Personal Compass
+
+My compass-md is at ~/compass/. When generating commit messages, PR
+descriptions, docs, or other written output, read the relevant files
+there first. Propose refinements to ~/compass/refinements/pending/ when
+you observe patterns worth capturing.
+```
+
+**Step 6: Test it.** Open Claude Code in your Compass folder:
+
+```bash
+cd ~/compass && claude
+```
+
+Ask something that should trigger a Compass read:
+
+> "Draft a quick email to a client telling them a project is delayed by a week. Match my voice."
+
+The response should cite which Compass files it read (e.g., "Drawing on self/voice.md..."). If it doesn't, check that `CLAUDE.md` is in `~/compass/` and that you opened Claude Code from that directory.
+
+**Use it for two weeks before optimizing.** When refinements appear in `~/compass/refinements/pending/`, review and accept the good ones.
+
+After setup, see **[GETTING_STARTED.md](./GETTING_STARTED.md)** for the daily/weekly/monthly rhythm.
+
+---
+
+### Setup: Git repository (~1 hour)
+
+1. **Create a private repository** called `compass` on GitHub (or GitLab, or wherever you host). Clone it locally.
+
+2. **Copy the templates.**
+
+   ```bash
+   cd ~/compass  # wherever you cloned
+   cp -r /path/to/compass-md/templates/self .
+   cp /path/to/compass-md/templates/COMPASS.md .
+   cp /path/to/compass-md/templates/log.md .
+   mkdir -p team/criteria refinements/{pending,accepted,rejected}
+   touch refinements/{pending,accepted,rejected}/.gitkeep
+   ```
+
+3. **Edit `COMPASS.md`.** Customize it — same as above.
+
+4. **Draft initial content.** Fill in rough drafts of `self/voice.md`, `self/preferences.md`, and `self/facts.md`.
+
+5. **Connect an AI tool.** Claude Code works natively with a local clone. See `recipes/claude-code.md`. Add a reference to your Compass path in each code project's CLAUDE.md per the recipe.
+
+   For team Compasses: multiple contributors clone the same repository. Use branches for proposed refinements, PRs for the review step. See `docs/github-storage.md` for the full Git-native workflow.
+
+6. **Commit your initial Compass.** A clean commit history of Compass evolution is one of the main reasons to use Git.
+
+After setup, see **[GETTING_STARTED.md](./GETTING_STARTED.md)**.
 
 ---
 
@@ -144,6 +313,23 @@ Not every Compass needs every folder. A pure personal Compass might use only `se
 ### Personal context (`self/`)
 
 **`voice.md`** — How the person writes and speaks. Tone, register, vocabulary preferences, sentence structure tendencies, things they say, things they avoid. Used by agents drafting content on the person's behalf.
+
+```markdown
+# Voice
+
+## Tone and register
+Direct and concise. Internal notes are casual; external communication is
+professional but not stiff. No hedging when I have a view.
+
+## Vocabulary
+**I use:** short sentences, active verbs, specific numbers over vague quantifiers
+**I avoid:** "it's worth noting", "perhaps", "synergy", "circle back", "reach out"
+
+## Structure
+Lead with the conclusion, then the reasoning.
+Short paragraphs. One idea per paragraph.
+Use dashes for asides — not parentheses.
+```
 
 **`perspectives/*.md`** — One file per topic the person has stated views on. Examples: `perspectives/competitive-strategy.md`, `perspectives/ai-safety.md`, `perspectives/management.md`. Each file captures the person's actual position on the topic with supporting reasoning, ideally with citations to where they expressed it. Used by agents reasoning about decisions or producing content where the person's perspective should be reflected.
 
@@ -258,7 +444,7 @@ Humans have three primary interactions with the Compass:
 
 ### Direct editing
 
-Humans can edit any Compass file directly at any time. The Compass belongs to the human; agents are visitors. Direct edits should be noted in `log.md` with `manual-edit` event type. In Google Drive, this is just opening the markdown file in any Drive-aware editor.
+Humans can edit any Compass file directly at any time. The Compass belongs to the human; agents are visitors. Direct edits should be noted in `log.md` with `manual-edit` event type. In Google Drive, this is just opening the markdown file in any Drive-aware editor. In a local or Git setup, this is any text editor.
 
 ### Reviewing pending refinements
 
@@ -268,7 +454,7 @@ Periodically (daily, weekly, on notification), humans review files in `refinemen
 - **Reject**: move the refinement file to `refinements/rejected/` with a `## Rejection reason` section appended
 - **Edit and accept**: modify the proposed change as needed, then accept
 
-For Drive-based Compasses, this can be as simple as: open the `refinements/pending/` folder in Drive, read each refinement file, drag it to `accepted/` or `rejected/`. Tools, dashboards, or workflows can be built around this pattern. The convention defines the *location* of pending refinements; the *interface* for review is implementation-specific.
+The mechanics depend on your storage: in Drive, this can be as simple as dragging files between folders. In a local or Git setup, it's moving files on the filesystem (and committing if using Git). Tools and dashboards can be built around this pattern. The convention defines the *location* of pending refinements; the *interface* for review is implementation-specific.
 
 ### Lint operations
 
@@ -290,12 +476,12 @@ The lint report is a markdown file the human reviews to maintain Compass health.
 A person sets up a Compass to capture their voice, perspectives, and preferences for use across AI tools.
 
 **Setup:**
-1. Create a `compass` folder in Google Drive
+1. Create a `compass` folder (Drive, local, or Git — see Setup above)
 2. Copy templates from this repo
 3. Fill in initial drafts of `self/voice.md`, `self/preferences.md`, `self/facts.md`
 4. Create initial perspective files in `self/perspectives/` for topics with strong views
 5. Customize `COMPASS.md` for personal use
-6. Connect Cowork or Claude.ai (with Drive connector) using the provided recipe
+6. Connect an AI tool using the appropriate recipe
 
 **Daily use:**
 1. Use AI tools configured to read the Compass
@@ -340,12 +526,12 @@ The team's review criteria evolve based on actual feedback patterns rather than 
 
 ### CLAUDE.md / AGENTS.md
 
-`COMPASS.md` does not replace `CLAUDE.md` or `AGENTS.md`. They serve different purposes:
+Different tools, different purposes:
 
-- `CLAUDE.md`/`AGENTS.md`: instructions to the AI agent about how to operate in this project/repo
-- `COMPASS.md`: instructions to the AI agent about how to read and contribute to the Compass
+- **CLAUDE.md / AGENTS.md** — project-specific instructions for a codebase. Travels with the repo. Describes the project.
+- **Compass-md** — person-specific context. Travels with you. Describes the person.
 
-A repo can have both. A typical setup: `CLAUDE.md` instructs Claude Code on the codebase conventions, `COMPASS.md` instructs any agent on the personal/team context Compass.
+They're complementary. A developer using both gets project context (CLAUDE.md) and personal context (compass-md) in every session. `COMPASS.md` (the schema file inside your Compass folder) is not a replacement for `CLAUDE.md` — it's the per-Compass instructions that tell agents how to read and contribute to the Compass itself.
 
 ### Karpathy's LLM Wiki
 
@@ -369,19 +555,20 @@ This repo includes:
 **Templates** (`/templates/`): Empty markdown files for each Compass category, ready to copy into a new Compass.
 
 **Agent integration recipes** (`/recipes/`): System prompt snippets and instructions for connecting various AI tools to a Compass. Includes:
-- `cowork.md` — instructions for Claude Cowork (Drive-native, recommended starting point)
+- `cowork.md` — instructions for Claude Cowork (Drive-native)
 - `claude-ai.md` — instructions for Claude.ai Projects (Drive-connected)
-- `claude-code.md` — instructions for Claude Code (local filesystem)
+- `claude-code.md` — instructions for Claude Code (local filesystem or Git)
 - `cursor.md` — instructions for Cursor (local filesystem)
 - `chatgpt.md` — instructions for ChatGPT custom instructions
 - `local-ollama.md` — instructions for fully-local setups
 
 **Bootstrap prompts** (`/bootstrap/`): Prompts for initializing a Compass from existing material:
-- `full-drive-scan.md` — scan your Google Drive to produce initial substrate drafts (recommended starting point)
+- `full-drive-scan.md` — scan your Google Drive to produce initial substrate drafts (Drive users)
+- `local-folder-scan.md` — scan your local documents folder to produce initial substrate drafts (local and Git users)
 - `voice-from-writing-samples.md` — focused voice extraction from writing samples
-- `interview-perspectives.md` — conversational interview to populate perspective files (required for perspectives)
+- `interview-perspectives.md` — conversational interview to populate perspective files (required for perspectives regardless of storage)
 - `team-guidelines-from-history.md` — extract team guidelines from past decisions
-- `facts-from-resume.md` — quick bootstrap of facts.md from a resume
+- `facts-from-resume.md` — quick bootstrap of facts.md
 
 **Helper scripts** (`/scripts/`): Optional utilities:
 - `validate-compass.py` — checks a folder against the convention, reports violations
@@ -421,9 +608,9 @@ MCP solves the problem of agents discovering and calling tools at runtime. The C
 
 That said, an MCP server that exposes Compass operations is a valid implementation choice for tools that benefit from it. The convention doesn't prevent it; it just doesn't require it.
 
-**Why Google Drive as the recommended starting point?**
+**What's the recommended storage?**
 
-Drive has the broadest AI tool integration today (Cowork, Claude.ai, ChatGPT all have connectors), works on every device, has built-in versioning, and is familiar to non-technical users. The convention works in any storage; Drive is just the lowest-friction starting point for most people.
+There isn't one universal answer — it depends on your situation. Google Drive for non-technical users who want multi-device access and Cowork/Claude.ai integration. Local folder for developers who want sovereignty and use Claude Code or Cursor. Git for developers who want audit trails, diffs, or team collaboration. See the Setup section for a comparison table.
 
 **How does this differ from "Notion AI" or "ChatGPT custom instructions"?**
 
@@ -433,13 +620,11 @@ The Compass is portable and tool-agnostic. The same files work with Cowork, Clau
 
 **What about privacy?**
 
-The Compass lives in your storage of choice. You control who has access. Agents reading the Compass operate under whatever permissions you give them in their respective products (your Cowork session, your Claude.ai account, etc.). Nothing in the convention requires you to share Compass with anyone.
-
-For team Compasses, treat the Compass folder like any other team document — apply appropriate access controls in your storage system.
+The Compass lives in your storage of choice. You control who has access. For maximum privacy, use a local folder — nothing leaves your machine. For team Compasses, apply appropriate access controls in your storage system (Drive sharing, repo visibility settings, etc.).
 
 **How do I bootstrap a Compass when starting from nothing?**
 
-See `/bootstrap/` for prompts that help. The general approach: spend 30 minutes manually drafting initial files, then use bootstrap prompts to enrich them from existing material (your writing samples, team docs, past decisions). The Compass gets richer through use; perfect bootstrapping isn't necessary.
+See `/bootstrap/` for prompts that help. Drive users start with `full-drive-scan.md`; local and Git users start with `local-folder-scan.md`. Both produce drafts in about an hour that you then review. The Compass gets richer through use; perfect bootstrapping isn't necessary.
 
 **What if I disagree with the folder structure?**
 
@@ -449,15 +634,11 @@ The hope is that the standard structure works for most use cases and adaptations
 
 ---
 
-## Contributing
+## Get involved
 
-This is a community spec. Contributions welcome:
-
-- Refinements to the convention itself (PRs to this repo)
-- New agent integration recipes (`/recipes/`)
-- Better bootstrap prompts (`/bootstrap/`)
-- Anonymized example Compasses (`/examples/`)
-- Implementations: dashboards, CLI tools, MCP servers, IDE plugins — whatever helps adopters
+- **Use it:** Bootstrap your own Compass from the templates in `/templates`. Follow the recipes in `/recipes` to connect your AI tool of choice.
+- **Integrate it:** Add compass-md support to your agent or tool. The refinement format is the integration surface — your tool reads Compass files before acting and writes to `refinements/pending/` when it observes something worth capturing.
+- **Improve it:** File issues for spec gaps. Submit PRs for new integration recipes, better bootstrap prompts, or anonymized example Compasses. Implementations (dashboards, CLI tools, MCP servers, IDE plugins) belong here too — link them in an issue so the community can find them.
 
 See `CONTRIBUTING.md` for details.
 
@@ -467,7 +648,7 @@ See `CONTRIBUTING.md` for details.
 
 **Current version:** v0.1 (initial draft)
 **Stability:** Pre-stable. Expect refinements based on early adopter feedback.
-**Published by:** [Hiipo](https://hiipo.io). Hiipo also ships a sovereign AI governance proxy — a related but distinct product.
+**Published by:** [Hiipo](https://hiipo.io). Compass-md is the open context substrate. Hiipo is the commercial active memory layer that sits alongside it — handling real-time, conviction-scored memory that complements the stable context compass-md maintains.
 
 ---
 
@@ -480,3 +661,12 @@ This convention is inspired by:
 - The CLAUDE.md and AGENTS.md conventions — the pattern of meta-files that instruct agents how to operate
 
 The personal-context-Compass framing and the team-context extension are this convention's specific contributions on top of those foundations.
+
+## Further reading
+
+For the broader landscape that compass sits within:
+
+- [How AI Agent Memory Works](https://memory.cobanov.dev/) by Mert Cobanov — an excellent interactive essay on memory architectures (vector stores, knowledge graphs, hierarchical memory, multi-agent systems). Covers layer 3 of the personal AI stack described in "Where compass fits."
+- [MemGPT paper](https://arxiv.org/abs/2310.08560) — hierarchical memory for stateful agents
+- [Letta documentation](https://docs.letta.com/guides/core-concepts/stateful-agents) — self-editing memory architectures
+- [ChatGPT memory announcement](https://openai.com/index/memory-and-new-controls-for-chatgpt/) — the per-tool memory pattern compass-md is positioned alongside, not against

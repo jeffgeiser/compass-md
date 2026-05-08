@@ -1,5 +1,7 @@
 # Recipe: Claude Code
 
+**Storage assumed: Local filesystem or Git repository.** Claude Code reads files directly from your machine. If your Compass is in Drive and you haven't synced it locally, either sync it (Drive Desktop or rclone) or use `recipes/cowork.md` instead.
+
 Connect Claude Code to your compass-md so coding sessions benefit from your voice, preferences, and decisions — and so Claude Code can propose refinements as it observes your patterns.
 
 ---

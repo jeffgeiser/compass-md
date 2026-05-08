@@ -1,8 +1,10 @@
 # Recipe: Claude Cowork
 
+**Storage assumed: Google Drive.** Cowork has native Drive integration. If your Compass is local or in Git, see `recipes/claude-code.md` instead.
+
 Connect Cowork to your Compass so it reads your context before acting and proposes refinements as it works with you.
 
-This is the recommended starting recipe — Cowork has native Drive integration and can both read and write to your Compass folder, which makes the full read-write loop work end-to-end without additional tooling.
+This is the recommended recipe for Drive users — Cowork can both read and write to your Compass folder, which makes the full read-write loop work end-to-end without additional tooling.
 
 ---
 

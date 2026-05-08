@@ -12,28 +12,36 @@ Bootstrap outputs are always drafts. Review carefully before saving to your Comp
 
 ---
 
-## Start here: full Drive scan (recommended)
+## Start here: pick your scan based on your storage
 
-### [`full-drive-scan.md`](full-drive-scan.md) ★ Recommended starting point
+### [`full-drive-scan.md`](full-drive-scan.md) — for Google Drive users
 
-**Use when:** You already have a meaningful amount of content in Google Drive — writing, notes, docs, project files. This is most people.
+**Use when:** Your Compass is in Google Drive and you have meaningful content there — writing, notes, docs, project files.
 
-**What it produces:** Draft versions of `self/facts.md`, `self/voice.md`, `self/preferences.md`, and `self/decisions.md` — the core of a personal Compass — produced by Cowork scanning your Drive content directly.
-
-**Why start here:** Drive contains more signal about you than any other single source. A Drive scan produces more comprehensive starting drafts than manual creation, and it catches patterns you wouldn't have thought to write down. The tradeoff is that the output requires careful review — AI inference from Drive content can produce plausible-but-wrong claims, especially for voice and preferences.
+**What it produces:** Draft versions of `self/facts.md`, `self/voice.md`, `self/preferences.md`, and `self/decisions.md` — produced by Cowork scanning your Drive content directly.
 
 **Time:** ~1 hour total (10 min setup, 5-15 min scan, 30-60 min review)
 
-**Note:** This bootstrap deliberately does NOT produce `self/perspectives/` files — use the interview bootstrap for those. Perspectives inferred from Drive content tend to be wrong.
+---
+
+### [`local-folder-scan.md`](local-folder-scan.md) — for local filesystem and Git users
+
+**Use when:** Your Compass is on a local filesystem or in a git repository. Claude Code scans your local documents folder.
+
+**What it produces:** Same four draft files — facts, voice, preferences, decisions — produced by Claude Code scanning documents on your machine.
+
+**Time:** ~1 hour total (10 min setup, 5-15 min scan, 30-60 min review)
 
 ---
 
-## After the Drive scan: what to do next
+Both bootstraps deliberately do NOT produce `self/perspectives/` files — use the interview bootstrap for those. Perspectives inferred from document content tend to be wrong regardless of storage.
 
-Once you have draft facts/voice/preferences/decisions from the Drive scan:
+## After the scan: what to do next
 
-1. **Add perspectives** using [`interview-perspectives.md`](interview-perspectives.md) — this is the step the Drive scan can't do for you.
-2. **Tune voice specifically** using [`voice-from-writing-samples.md`](voice-from-writing-samples.md) if you want to go deeper on voice than the Drive scan reached.
+Once you have draft facts/voice/preferences/decisions:
+
+1. **Add perspectives** using [`interview-perspectives.md`](interview-perspectives.md) — this is the step neither scan can do for you.
+2. **Tune voice specifically** using [`voice-from-writing-samples.md`](voice-from-writing-samples.md) if you want more precision than the scan produced.
 3. **For team Compasses**, see [`team-guidelines-from-history.md`](team-guidelines-from-history.md).
 
 ---
@@ -42,11 +50,23 @@ Once you have draft facts/voice/preferences/decisions from the Drive scan:
 
 ### [`full-drive-scan.md`](full-drive-scan.md)
 
-**Best for:** facts.md, voice.md, preferences.md, decisions.md — the recommended starting point for anyone with Drive content.
+**Best for:** Drive users bootstrapping facts.md, voice.md, preferences.md, decisions.md.
 
 **Input:** Your Google Drive (Cowork scans it directly).
 
-**Output:** Draft substrate files for the four core categories. Produces more comprehensive output than other bootstraps because it works from everything you've written, not just samples you select.
+**Output:** Draft substrate files for the four core categories.
+
+**Time:** ~1 hour.
+
+---
+
+### [`local-folder-scan.md`](local-folder-scan.md)
+
+**Best for:** Local/Git users bootstrapping the same four files.
+
+**Input:** Your local documents folder (Claude Code scans it directly).
+
+**Output:** Draft substrate files for the four core categories.
 
 **Time:** ~1 hour.
 
