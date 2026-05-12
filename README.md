@@ -182,7 +182,10 @@ git clone https://github.com/jeffgeiser/compass-md /tmp/compass-md
 cp -r /tmp/compass-md/templates/self ~/compass/
 cp /tmp/compass-md/templates/COMPASS.md ~/compass/
 cp /tmp/compass-md/templates/log.md ~/compass/
+cp /tmp/compass-md/templates/CLAUDE.md ~/compass/
 ```
+
+`CLAUDE.md` is what makes Claude Code and Cursor automatically Compass-aware. Without it, those tools won't know your Compass exists.
 
 **Step 3: Edit `COMPASS.md`.** Open `~/compass/COMPASS.md` in any text editor. Set your name as owner, mark `self/` as active, and add any engagement notes. Spend 10 minutes here — this file shapes how every agent reads your Compass.
 
@@ -257,6 +260,7 @@ After setup, see **[GETTING_STARTED.md](./GETTING_STARTED.md)** for the daily/we
    cp -r /path/to/compass-md/templates/self .
    cp /path/to/compass-md/templates/COMPASS.md .
    cp /path/to/compass-md/templates/log.md .
+   cp /path/to/compass-md/templates/CLAUDE.md .
    mkdir -p team/criteria refinements/{pending,accepted,rejected}
    touch refinements/{pending,accepted,rejected}/.gitkeep
    ```
