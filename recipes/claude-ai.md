@@ -4,6 +4,9 @@
 
 Set up a Claude.ai Project that reads from your compass-md so every conversation in that project benefits from your context.
 
+> **Is a prompt alone enough?**
+> A prompt alone gives Claude instructions for one conversation but no access to your actual Compass files. Full setup requires two things: (1) paste the instructions into your **project's custom instructions** — this persists across all conversations in the project; (2) add your Compass folder to the **project's files** via Drive connector — this gives Claude access to read your actual voice.md, preferences.md, etc. Without the files connected, Claude follows the instructions but reads from memory rather than your Compass. Without the custom instructions, you'd need to re-explain the workflow every conversation.
+
 ---
 
 ## Setup (5 minutes)

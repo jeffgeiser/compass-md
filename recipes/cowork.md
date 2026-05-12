@@ -6,6 +6,9 @@ Connect Cowork to your Compass so it reads your context before acting and propos
 
 This is the recommended recipe for Drive users — Cowork can both read and write to your Compass folder, which makes the full read-write loop work end-to-end without additional tooling.
 
+> **Is a prompt alone enough?**
+> Yes, for that one conversation — but you'll have to paste it every time. The right setup is to paste the instructions into your Cowork **project's custom instructions** once. After that, every conversation in that project automatically gets Compass context with no prompting needed. No CLAUDE.md or other file required — the custom instructions field is the configuration.
+
 ---
 
 ## Setup (5 minutes)

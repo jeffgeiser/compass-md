@@ -548,6 +548,42 @@ The Compass is just markdown files. It works alongside any tool that reads markd
 
 ---
 
+## Connecting AI tools: what's actually required
+
+Different tools work differently. The table below answers the key question for each one: what do you actually need to set up, and is pasting a prompt enough?
+
+| Tool | What makes it persistent | Is a prompt alone enough? | Where to set it up |
+|---|---|---|---|
+| **Claude Code** | `CLAUDE.md` file in the compass folder *and* in each code project | No — prompt works for one session only, forgotten next time | Create `~/compass/CLAUDE.md`; add a compass reference block to each project's `CLAUDE.md` |
+| **Cursor** | `.cursorrules` file in the compass folder *and* in each code project | No — prompt works for one session only | Create `~/compass/.cursorrules`; add a compass reference block to each project's `.cursorrules` |
+| **Claude Cowork** | Project custom instructions (paste the prompt there once) | Yes, but only for that one conversation | Cowork → your project → Edit custom instructions |
+| **Claude.ai Projects** | Project custom instructions + compass folder added to project files | Prompt alone = one conversation, no file access | Claude.ai → project → Custom instructions + Files → Add from Drive |
+| **ChatGPT** | Custom GPT with files uploaded + system prompt | Prompt alone = one conversation, no file access | ChatGPT → Explore GPTs → Create a GPT → Knowledge + Instructions |
+
+**The core distinction:**
+
+- **File-reading tools (Claude Code, Cursor)** — these tools read a configuration file (CLAUDE.md or .cursorrules) at the start of every session. Without that file, they have no idea your Compass exists. Pasting a prompt works once but disappears when the session ends. The file is what makes it automatic.
+
+- **Chat tools (Cowork, Claude.ai, ChatGPT)** — these tools use custom instructions or project system prompts that persist across conversations. Setting up the instructions *is* the setup. No separate file is required (except for file access — Claude.ai and Cowork need the Compass folder connected to read the actual files).
+
+**What "connecting" actually means in practice:**
+
+For Claude Code:
+```
+Session without CLAUDE.md:  You open a project → Claude Code knows nothing about your Compass
+Session with CLAUDE.md:     You open a project → Claude Code automatically reads CLAUDE.md → knows your Compass exists and how to use it
+```
+
+For Cowork / Claude.ai:
+```
+Session without custom instructions:  You start a conversation → Claude reads nothing → no Compass context
+Session with custom instructions:     You start a conversation → custom instructions applied automatically → Claude reads your Compass files before responding
+```
+
+See the detailed recipes in `/recipes/` for the exact text to paste for each tool.
+
+---
+
 ## Reference implementations
 
 This repo includes:

@@ -4,6 +4,9 @@
 
 Connect Claude Code to your compass-md so coding sessions benefit from your voice, preferences, and decisions — and so Claude Code can propose refinements as it observes your patterns.
 
+> **Is a prompt alone enough?**
+> No. Claude Code reads a `CLAUDE.md` file at the start of every session — that's how it gets instructions. Pasting a prompt works for one session but is forgotten when the session ends. You need a `CLAUDE.md` file in your Compass folder *and* a compass reference in each code project's `CLAUDE.md`. Once those files exist, every session is automatically Compass-aware with no extra prompting.
+
 ---
 
 ## Setup (5 minutes)
@@ -64,6 +67,8 @@ claude
 Claude Code automatically reads CLAUDE.md and follows the instructions.
 
 ### 4. For other projects: reference the Compass from their CLAUDE.md
+
+**This step is required for Compass context to apply to your actual work.** The CLAUDE.md in `~/compass/` only applies when you open Claude Code *inside* the compass folder. For every code project where you want Compass context, you need a compass reference in that project's own CLAUDE.md.
 
 When working in a code project elsewhere on your machine, add to that project's CLAUDE.md:
 

@@ -4,6 +4,9 @@
 
 Connect Cursor to your compass-md so coding sessions benefit from your voice, preferences, and decisions.
 
+> **Is a prompt alone enough?**
+> No. Cursor applies `.cursorrules` automatically at the start of every session in a project — that's how it gets instructions. Pasting a prompt works for one conversation but is forgotten when the session ends. You need a `.cursorrules` file in your Compass folder *and* a compass reference in each code project's `.cursorrules`. Once those files exist, every Cursor session in those projects is automatically Compass-aware.
+
 ---
 
 ## Setup (5 minutes)
@@ -37,6 +40,8 @@ When you observe something worth capturing as a refinement:
 ```
 
 ### 3. Reference the Compass from your code projects
+
+**This step is required for Compass context to apply to your actual work.** The `.cursorrules` in `~/compass/` only applies when you open Cursor *inside* the compass folder. For every code project where you want Compass context, you need a compass reference in that project's own `.cursorrules`.
 
 For each code project where you want Compass context, add a `.cursorrules` reference:
 

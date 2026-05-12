@@ -4,6 +4,9 @@
 
 Connect ChatGPT to your compass-md context. ChatGPT's file access model is different from the other recipes — it doesn't have a persistent file connector in the same way Cowork and Claude.ai do — so the patterns here involve more manual setup.
 
+> **Is a prompt alone enough?**
+> A prompt gives ChatGPT instructions but no access to your Compass files — it will follow the workflow but read from its training knowledge rather than your actual files. For real file access you need to upload your Compass files to a Custom GPT's Knowledge section (Option 1 below). For quick use without file access, paste a condensed Compass summary into ChatGPT's Custom Instructions (Option 2) — this persists across all conversations but is a compressed approximation. Pasting a prompt in chat with files attached works for one conversation.
+
 Two options, depending on how you use ChatGPT.
 
 ---
