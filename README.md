@@ -127,9 +127,9 @@ The Compass is just files. Where those files live determines which AI tools can 
 
 | | Google Drive | Local folder | Git repository |
 |---|---|---|---|
-| **Good for** | Multi-device access; Drive-native tools | Privacy; local-first tools; simplest setup | Audit trail; teams; diff/PR workflows |
+| **Good for** | Multi-device access; Drive-native tools | Privacy; local-first tools; simplest setup | Audit trail; teams; diff/PR workflows; multi-device sync |
 | **Works with** | Cowork, Claude.ai | Claude Code, Cursor, Ollama | Claude Code, Cursor |
-| **Device access** | Any device | This machine (or synced) | Any device via `git pull` |
+| **Device access** | Any device | This machine (or synced) | Any device; auto-synced via included launchd agents |
 | **Requires** | Google account | Nothing | Git familiarity |
 | **Privacy** | Google's terms apply | Fully local | Depends on repo visibility |
 
@@ -275,6 +275,25 @@ After setup, see **[GETTING_STARTED.md](./GETTING_STARTED.md)** for the daily/we
 
 6. **Commit your initial Compass.** A clean commit history of Compass evolution is one of the main reasons to use Git.
 
+7. **Set up auto-sync across devices (recommended).** The Compass repo includes launchd agents that automatically push file changes to GitHub and pull updates every 5 minutes — so edits on one machine appear on all others within minutes, with no manual `git push` required.
+
+   Install on each machine:
+
+   ```bash
+   bash ~/compass/.scripts/install-sync.sh
+   ```
+
+   This installs two background agents:
+   - **push agent** — watches `~/compass` for file changes and commits + pushes to GitHub automatically (with a 3-second debounce to let writes settle)
+   - **pull agent** — pulls from GitHub every 5 minutes so changes from other machines arrive automatically
+
+   The scripts live inside your compass repo (`.scripts/`), so they're already present after `git pull`. Run the install once per machine; it's idempotent. Logs go to `/tmp/compass-pull.log` and `/tmp/compass-push.log`.
+
+   **If your tracking branch isn't set up**, run this before the install:
+   ```bash
+   git -C ~/compass branch --set-upstream-to=origin/main main && git -C ~/compass pull
+   ```
+
 After setup, see **[GETTING_STARTED.md](./GETTING_STARTED.md)**.
 
 ---
@@ -286,6 +305,7 @@ A Compass is a folder named `compass` (or any name you choose) containing:
 ```
 compass/
 ├── COMPASS.md                      ← schema file: tells agents how to follow the convention
+├── CLAUDE.md                       ← tells Claude Code how to use this Compass automatically
 ├── README.md                       ← human-readable description of this Compass
 ├── self/                           ← personal context (for individual use)
 │   ├── voice.md
@@ -304,6 +324,10 @@ compass/
 │   ├── pending/                    ← agent-proposed changes awaiting human review
 │   ├── accepted/                   ← review history of approved changes
 │   └── rejected/                   ← review history of rejected changes (with reasons)
+├── .scripts/                       ← optional: git sync agents (Git storage only)
+│   ├── compass-push.sh             ← auto-push on file change
+│   ├── compass-pull.sh             ← auto-pull on schedule
+│   └── install-sync.sh             ← installs launchd agents on macOS
 ├── log.md                          ← chronological event log
 └── INDEX.md                        ← optional: catalog of Compass files for fast lookup
 ```
