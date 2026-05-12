@@ -582,33 +582,35 @@ Different tools work differently. The table below answers the key question for e
 
 | Tool | What makes it persistent | Is a prompt alone enough? | Where to set it up |
 |---|---|---|---|
-| **Claude Code** | `CLAUDE.md` file in the compass folder *and* in each code project | No — prompt works for one session only, forgotten next time | Create `~/compass/CLAUDE.md`; add a compass reference block to each project's `CLAUDE.md` |
-| **Cursor** | `.cursorrules` file in the compass folder *and* in each code project | No — prompt works for one session only | Create `~/compass/.cursorrules`; add a compass reference block to each project's `.cursorrules` |
+| **Claude Code** | `CLAUDE.md` file in each code project | No — but the self-install prompt handles it automatically | Paste the connect prompt once; the AI adds itself to the project's `CLAUDE.md` |
+| **Cursor** | `.cursorrules` file in each code project | No — but the self-install prompt handles it automatically | Paste the connect prompt once; the AI adds itself to `.cursorrules` |
 | **Claude Cowork** | Project custom instructions (paste the prompt there once) | Yes, but only for that one conversation | Cowork → your project → Edit custom instructions |
 | **Claude.ai Projects** | Project custom instructions + compass folder added to project files | Prompt alone = one conversation, no file access | Claude.ai → project → Custom instructions + Files → Add from Drive |
 | **ChatGPT** | Custom GPT with files uploaded + system prompt | Prompt alone = one conversation, no file access | ChatGPT → Explore GPTs → Create a GPT → Knowledge + Instructions |
 
+**The self-installing connect prompt**
+
+The connect prompt from your compass-dash Settings screen is designed to be self-installing. When you paste it into any AI tool at the start of a new project, the AI's first action is to add a Compass reference block to the project's own config file — CLAUDE.md for Claude Code, .cursorrules for Cursor, AGENTS.md for GitHub Copilot, and so on. The AI figures out which file to use based on the tool it's running in.
+
+After that first paste, every future session in that project is automatically Compass-aware. You don't paste the prompt again.
+
+```
+First session in a new project:
+  Paste connect prompt → AI reads compass → AI adds compass block to CLAUDE.md → done
+
+Every session after:
+  Open project → tool reads CLAUDE.md → compass context is automatically loaded
+```
+
+For chat-based tools (Cowork, Claude.ai, ChatGPT), there's no project file to write to — set up the connect prompt in the tool's custom instructions once and it applies to all conversations in that project.
+
 **The core distinction:**
 
-- **File-reading tools (Claude Code, Cursor)** — these tools read a configuration file (CLAUDE.md or .cursorrules) at the start of every session. Without that file, they have no idea your Compass exists. Pasting a prompt works once but disappears when the session ends. The file is what makes it automatic.
+- **File-reading tools (Claude Code, Cursor)** — these tools read a configuration file at the start of every session. The self-install prompt gets the AI to write that file on first use, so subsequent sessions need no prompting.
 
-- **Chat tools (Cowork, Claude.ai, ChatGPT)** — these tools use custom instructions or project system prompts that persist across conversations. Setting up the instructions *is* the setup. No separate file is required (except for file access — Claude.ai and Cowork need the Compass folder connected to read the actual files).
+- **Chat tools (Cowork, Claude.ai, ChatGPT)** — custom instructions persist across conversations. Setting them up once is the full setup. No per-project file is needed.
 
-**What "connecting" actually means in practice:**
-
-For Claude Code:
-```
-Session without CLAUDE.md:  You open a project → Claude Code knows nothing about your Compass
-Session with CLAUDE.md:     You open a project → Claude Code automatically reads CLAUDE.md → knows your Compass exists and how to use it
-```
-
-For Cowork / Claude.ai:
-```
-Session without custom instructions:  You start a conversation → Claude reads nothing → no Compass context
-Session with custom instructions:     You start a conversation → custom instructions applied automatically → Claude reads your Compass files before responding
-```
-
-See the detailed recipes in `/recipes/` for the exact text to paste for each tool.
+See the detailed recipes in `/recipes/` for tool-specific instructions.
 
 ---
 
